@@ -2,7 +2,6 @@ package dal
 
 import (
 	"fmt"
-	"os"
 	"sync"
 
 	"gorm.io/driver/mysql"
@@ -23,9 +22,7 @@ func init() {
 
 func ConnectDB() (conn *gorm.DB) {
 	var err error
-	if os.Getenv("DB_CONNECT_MODE") == "DSN" {
-		conn, err = gorm.Open(mysql.Open(config.MySQLDSN))
-	}
+	conn, err = gorm.Open(mysql.Open(config.MySQLDSN))
 	if err != nil {
 		panic(fmt.Errorf("cannot establish db connection: %w", err))
 	}
